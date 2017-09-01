@@ -458,6 +458,10 @@ define(
                     values = filteredValues;
                 }
 
+                if (undefined === this.getExtension('attribute-filter')) {
+                    return $.Deferred().resolve(values);
+                }
+
                 return this.getExtension('attribute-filter').filterValues(values);
             },
 
