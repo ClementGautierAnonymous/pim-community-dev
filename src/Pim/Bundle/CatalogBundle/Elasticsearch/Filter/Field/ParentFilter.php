@@ -37,6 +37,15 @@ class ParentFilter extends AbstractFieldFilter implements FieldFilterInterface
         }
 
         switch ($operator) {
+            case Operators::IN_LIST:
+                $clause = [
+                    'terms' => [
+                        $field => $value,
+                    ],
+                ];
+
+                $this->searchQueryBuilder->addFilter($clause);
+                break;
             case Operators::IS_EMPTY:
                 $clause = [
                     'exists' => [

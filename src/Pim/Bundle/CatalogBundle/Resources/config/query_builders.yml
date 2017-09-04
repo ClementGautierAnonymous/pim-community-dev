@@ -252,7 +252,7 @@ services:
         class: '%pim_catalog.query.elasticsearch.filter.parent.class%'
         arguments:
             - ['parent']
-            - ['EMPTY']
+            - ['IN', 'EMPTY']
         tags:
             - { name: 'pim_catalog.elasticsearch.query.filter', priority: 30 }
 

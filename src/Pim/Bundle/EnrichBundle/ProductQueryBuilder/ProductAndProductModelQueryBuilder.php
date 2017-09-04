@@ -77,9 +77,18 @@ class ProductAndProductModelQueryBuilder implements ProductQueryBuilderInterface
             }
         );
 
-        if (empty($attributeFilters)) {
+        $fieldFilters = array_filter(
+            $this->getRawFilters(),
+            function ($filter) {
+                return 'field' === $filter['type'];
+            }
+        );
+
+        if (empty($attributeFilters) && empty($fieldFilters)) {
             $this->addFilter('parent', Operators::IS_EMPTY, null);
-        } else {
+        }
+
+        if (!empty($attributeFilters)) {
             $attributeFilterKeys = array_column($attributeFilters, 'field');
             $this->addFilter('attributes_for_this_level', Operators::IN_LIST, $attributeFilterKeys);
         }
